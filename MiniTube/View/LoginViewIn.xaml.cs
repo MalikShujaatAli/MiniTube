@@ -1,9 +1,12 @@
 ﻿using MiniTube.ModelsEAD;
 using System;
+using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MiniTube.View
 {
@@ -23,10 +26,11 @@ namespace MiniTube.View
         public LoginViewIn(string errorMessage)
         {
             InitializeComponent();
-            SetErrorMessage(errorMessage); // Set error message
+            System.Windows.Media.Brush brush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
+            txt_error.Foreground = brush;
+            txt_error.TextAlignment = TextAlignment.Center;
+            txt_error.Text = errorMessage;
         }
-
-        // ----- Validates the email format -----
         static bool EmailValidity(string email)
         {
             return Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
