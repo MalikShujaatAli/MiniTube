@@ -36,6 +36,7 @@ namespace MiniTube.View
         }
 
         // ----- Asynchronously loads insights for the specified video ID -----
+        // ----- Asynchronously loads insights for the specified video ID -----
         private async void LoadInsights(int videoId)
         {
             using (var context = new MiniTubeContext())
@@ -68,22 +69,24 @@ namespace MiniTube.View
 
                     // ----- Fetch likes for the video -----
                     var likes = await context.Likes
-                        .Where(like => like.VideoId == videoId)
-                        .Select(like => new
+                        .Include(l => l.User)
+                        .Where(l => l.VideoId == videoId)
+                        .Select(l => new
                         {
-                            Username = like.User.Username,
-                            LikedDate = like.LikedDate // Use the LikedDate property from the Like model
+                            Username = l.User.Username,
+                            LikedDate = l.LikedDate
                         }).ToListAsync();
 
                     // ----- Fetch comments for the video -----
                     var comments = await context.Comments
-                        .Where(comment => comment.VideoId == videoId)
-                        .Select(comment => new
+                        .Include(c => c.User)
+                        .Where(c => c.VideoId == videoId)
+                        .Select(c => new
                         {
-                            CommentId = comment.CommentId, // Ensure CommentId is included
-                            Username = comment.User.Username,
-                            CommentText = comment.CommentText,
-                            CommentDate = comment.CommentDate // Use the CommentDate property from the Comment model
+                            CommentId = c.CommentId,
+                            Username = c.User.Username,
+                            CommentText = c.CommentText,
+                            CommentDate = c.CommentDate
                         }).ToListAsync();
 
                     // ----- Bind the likes and comments to their respective DataGrids -----
@@ -96,7 +99,6 @@ namespace MiniTube.View
                 }
             }
         }
-
         // ----- Saves byte array data to a temporary file and returns the file path -----
         private static string SaveToTempFile(byte[] data, string extension)
         {
@@ -180,6 +182,7 @@ namespace MiniTube.View
         }
 
         // ----- Asynchronously loads comments for the specified video ID -----
+        // ----- Asynchronously loads comments for the specified video ID -----
         private async Task LoadComments(int videoId)
         {
             using (var context = new MiniTubeContext())
@@ -187,13 +190,14 @@ namespace MiniTube.View
                 try
                 {
                     var comments = await context.Comments
-                        .Where(comment => comment.VideoId == videoId)
-                        .Select(comment => new
+                        .Include(c => c.User)
+                        .Where(c => c.VideoId == videoId)
+                        .Select(c => new
                         {
-                            CommentId = comment.CommentId, // Ensure CommentId is included
-                            Username = comment.User.Username,
-                            CommentText = comment.CommentText,
-                            CommentDate = comment.CommentDate
+                            CommentId = c.CommentId,
+                            Username = c.User.Username,
+                            CommentText = c.CommentText,
+                            CommentDate = c.CommentDate
                         }).ToListAsync();
 
                     CommentsDataGrid.ItemsSource = comments; // Bind comments to DataGrid 
@@ -204,7 +208,6 @@ namespace MiniTube.View
                 }
             }
         }
-
         // ----- Deletes a comment when the delete button is clicked -----
         private async void btn_delete_cmt_Click(object sender, RoutedEventArgs e)
         {
@@ -259,6 +262,14 @@ namespace MiniTube.View
             {
                 MessageBox.Show($"Error deleting comment: {ex.Message}"); // Handle exceptions 
             }
+        }
+
+        private void btn_edit_Click(object sender, RoutedEventArgs e)
+        {
+            UploadingView up = new UploadingView(uId, Id);
+            up.Show();
+            this.Close();
+
         }
     }
 }

@@ -36,6 +36,21 @@
 
                             </Grid.ColumnDefinitions>
 
+                            <Button Name="btn_edit" Cursor="Hand" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right"  BorderBrush="Black" Click="btn_edit_Click" Opacity="1" Margin="0,0,0,0">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/Images/edit.png"/>
+                                </Button.Background>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="80" Height="26.7" CornerRadius="13" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+
+                            </Button>
+
 
 
                             <Button Name="btn_delete" Cursor="Hand" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left"  BorderBrush="Black" Click="btn_delete_Click" Opacity="1" Margin="10,0,0,0">
@@ -143,36 +158,6 @@
 
 
                         </Grid>
-
-                        <!--<Grid Grid.Row="2" ShowGridLines="false">
-                            <Grid.ColumnDefinitions>
-
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock Text="Likes" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Helvetica LT Std" FontWeight="Bold" FontSize="25.89 "/>
-                            <TextBlock Text="Comments" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Helvetica LT Std" FontWeight="Bold" FontSize="25.89 "/>
-                        </Grid>-->
-
-
-
-                        <!--<DataGrid Background="Transparent" CanUserAddRows="False" AutoGenerateColumns="False" Name="grid_insights" Margin="0,17,0,60" SelectionChanged="grid_insights_SelectionChanged" Grid.Row="1" Grid.RowSpan="2">
-
-                            <DataGrid.ColumnHeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                    <Setter Property="FontSize" Value="14"/>
-                                    <Setter Property="FontFamily" Value="Helvetica LT Std"/>
-                                </Style>
-                            </DataGrid.ColumnHeaderStyle>
-                            <DataGrid.Columns>
-                                <DataGridTextColumn  Binding="{Binding Username}" Header="Likes" Width="*" FontFamily="Helvetica LT Std" FontWeight="Bold" FontSize="25.89 "></DataGridTextColumn>
-                                <DataGridTextColumn  Binding="{Binding Comment}" Header="Comments" Width="*" FontFamily="Helvetica LT Std" FontWeight="Bold" FontSize="25.89 "></DataGridTextColumn>
-                            </DataGrid.Columns>
-
-                        </DataGrid>-->
 
                         <TabControl Grid.Row="2" Margin="0,17,0,60">
                             <TabItem Header="Likes">
