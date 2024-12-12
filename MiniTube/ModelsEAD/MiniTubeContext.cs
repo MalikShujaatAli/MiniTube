@@ -31,7 +31,7 @@ public partial class MiniTubeContext : DbContext
     {
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__Comments__C3B4DFAA3BE838CB");
+            entity.HasKey(e => e.CommentId).HasName("PK__Comments__C3B4DFAA566188D7");
 
             entity.ToTable(tb => tb.HasTrigger("trg_UpdateCommentsCount"));
 
@@ -46,17 +46,16 @@ public partial class MiniTubeContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comments__UserID__440B1D61");
+                .HasConstraintName("FK__Comments__UserID__2739D489");
 
             entity.HasOne(d => d.Video).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.VideoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Comments__VideoI__44FF419A");
+                .HasConstraintName("FK__Comments__VideoI__2645B050");
         });
 
         modelBuilder.Entity<Like>(entity =>
         {
-            entity.HasKey(e => e.LikeId).HasName("PK__Likes__A2922CF4ED9CC787");
+            entity.HasKey(e => e.LikeId).HasName("PK__Likes__A2922CF4724F8431");
 
             entity.Property(e => e.LikeId).HasColumnName("LikeID");
             entity.Property(e => e.LikedDate)
@@ -68,17 +67,16 @@ public partial class MiniTubeContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Likes__UserID__48CFD27E");
+                .HasConstraintName("FK__Likes__UserID__2BFE89A6");
 
             entity.HasOne(d => d.Video).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.VideoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Likes__VideoID__49C3F6B7");
+                .HasConstraintName("FK__Likes__VideoID__2B0A656D");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC792121A3");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCACF61C8A04");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.Email)
@@ -97,11 +95,11 @@ public partial class MiniTubeContext : DbContext
 
         modelBuilder.Entity<Video>(entity =>
         {
-            entity.HasKey(e => e.VideoId).HasName("PK__Videos__BAE5124A67EE016D");
+            entity.HasKey(e => e.VideoId).HasName("PK__Videos__BAE5124A82202BE8");
 
             entity.Property(e => e.VideoId).HasColumnName("VideoID");
             entity.Property(e => e.CommentsCount).HasDefaultValue(0);
-            entity.Property(e => e.Description).IsUnicode(false);
+            entity.Property(e => e.Description).HasColumnType("text");
             entity.Property(e => e.Keyword1)
                 .HasMaxLength(100)
                 .IsUnicode(false);
@@ -122,8 +120,7 @@ public partial class MiniTubeContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Videos)
                 .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Videos__UserID__403A8C7D");
+                .HasConstraintName("FK__Videos__UserID__1DB06A4F");
         });
 
         OnModelCreatingPartial(modelBuilder);
