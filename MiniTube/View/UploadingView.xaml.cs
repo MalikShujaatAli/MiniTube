@@ -1,10 +1,12 @@
-﻿using MiniTube.ModelsEAD;
+﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.IO;
 using Microsoft.Win32;
 using System.Windows.Controls;
+using System.Windows.Media;
+using MiniTube.ModelsEAD;
 
 namespace MiniTube.View
 {
@@ -18,6 +20,8 @@ namespace MiniTube.View
         private byte[]? _video;
         private string? _videoPath;
         private int Id;
+        private int Vid;
+        private bool edit = false;
 
         // ----- Constructor -----
         public UploadingView()
@@ -29,6 +33,15 @@ namespace MiniTube.View
         {
             InitializeComponent();
             Id = userId;
+        }
+
+        public UploadingView(int userId, int videoid)
+        {
+            InitializeComponent();
+            Id = userId;
+            Vid = videoid;
+            edit = true;
+            LoadVideoDetails();
         }
 
         // ----- Window Mouse Down Event -----
@@ -85,6 +98,7 @@ namespace MiniTube.View
         }
 
         // ----- Upload Video to Database -----
+        // ----- Upload Video to Database -----
         private void UploadVideo()
         {
             string title = txt_title.Text;
@@ -98,33 +112,53 @@ namespace MiniTube.View
                 // Check if user exists
                 if (!context.Users.Any(u => u.UserId == Id))
                 {
-                    MessageBox.Show("The specified UserId does not exist. Please check the user ID.");
+                    MessageBox.Show("The specified User does not exist.");
                     return;
                 }
 
-                // Create and save video
-                var video = new Video
-                {
-                    UserId = Id,
-                    Title = title,
-                    Description = description,
-                    Thumbnail = _thumbnail,
-                    VideoFile = _video,
-                    Keyword1 = keyword1,
-                    Keyword2 = keyword2,
-                    Keyword3 = keyword3,
-                    UploadDate = DateTime.Now
-                };
+                // Check if video exists
+                var video = context.Videos.FirstOrDefault(v => v.VideoId == Vid);
 
-                context.Videos.Add(video);
-                context.SaveChanges();
-                MessageBox.Show("Video uploaded successfully!");
+                if (video != null)
+                {
+                    // Update existing video
+                    video.Title = title;
+                    video.Description = description;
+                    video.Thumbnail = _thumbnail;
+                    video.VideoFile = _video;
+                    video.Keyword1 = keyword1;
+                    video.Keyword2 = keyword2;
+                    video.Keyword3 = keyword3;
+                    video.UploadDate = DateTime.Now;
+
+                    context.SaveChanges();
+                    MessageBox.Show("Video updated successfully!");
+                }
+                else
+                {
+                    // Create and save new video
+                    video = new Video
+                    {
+                        UserId = Id,
+                        Title = title,
+                        Description = description,
+                        Thumbnail = _thumbnail,
+                        VideoFile = _video,
+                        Keyword1 = keyword1,
+                        Keyword2 = keyword2,
+                        Keyword3 = keyword3,
+                        UploadDate = DateTime.Now
+                    };
+
+                    context.Videos.Add(video);
+                    context.SaveChanges();
+                    MessageBox.Show("Video uploaded successfully!");
+                }
 
                 ResetForm();
                 NavigateToUploadingView();
             }
         }
-
         // ----- Reset Form Fields -----
         private void ResetForm()
         {
@@ -157,7 +191,6 @@ namespace MiniTube.View
             studioView.Show();
             this.Close();
         }
-
         // ----- Thumbnail Upload Button Click -----
         private void btn_thumbupload_Click(object sender, RoutedEventArgs e)
         {
@@ -210,25 +243,153 @@ namespace MiniTube.View
         // ----- Play Button Click -----
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            media_video.Play();
-            Play.Visibility = Visibility.Hidden;
-            Pause.Visibility = Visibility.Visible;
+            try
+            {
+                media_video.Play();
+                Play.Visibility = Visibility.Hidden;
+                Pause.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while playing the video: {ex.Message}");
+            }
         }
 
         // ----- Pause Button Click -----
         private void Pause_Click(object sender, RoutedEventArgs e)
         {
-            media_video.Pause();
-            Pause.Visibility = Visibility.Hidden;
-            Play.Visibility = Visibility.Visible;
+            try
+            {
+                media_video.Pause();
+                Pause.Visibility = Visibility.Hidden;
+                Play.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while pausing the video: {ex.Message}");
+            }
         }
 
         // ----- Stop Button Click -----
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            media_video.Stop();
-            Pause.Visibility = Visibility.Hidden;
-            Play.Visibility = Visibility.Visible;
+            try
+            {
+                media_video.Stop();
+                Pause.Visibility = Visibility.Hidden;
+                Play.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while stopping the video: {ex.Message}");
+            }
+        }
+
+        // ----- Load Video Details -----
+        // ----- Load Video Details -----
+        private void LoadVideoDetails()
+        {
+            using (var context = new MiniTubeContext())
+            {
+                var video = context.Videos.FirstOrDefault(v => v.VideoId == Vid);
+
+                if (video != null)
+                {
+                    // Log video details
+                    Console.WriteLine($"Video found: Title={video.Title}, Description={video.Description}");
+
+                    txt_title.Text = video.Title;
+                    txt_description.Text = video.Description;
+                    txt_k1.Text = video.Keyword1;
+                    txt_k2.Text = video.Keyword2;
+                    txt_k3.Text = video.Keyword3;
+
+                    // Load thumbnail
+                    if (video.Thumbnail != null && video.Thumbnail.Length > 0)
+                    {
+                        try
+                        {
+                            _thumbnail = video.Thumbnail;
+                            img_thumb.Source = ConvertByteArrayToBitmapImage(_thumbnail);
+                            btn_thumbupload.Opacity = 0;
+                            Console.WriteLine("Thumbnail loaded successfully.");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error loading thumbnail: {ex.Message}");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thumbnail is null or empty.");
+                        Console.WriteLine("Thumbnail is null or empty.");
+                    }
+
+                    // Load video
+                    if (video.VideoFile != null && video.VideoFile.Length > 0)
+                    {
+                        try
+                        {
+                            _video = video.VideoFile;
+                            var tempFilePath = Path.GetTempFileName();
+                            File.WriteAllBytes(tempFilePath, _video);
+
+                            // Check if the video file was saved correctly
+                            if (File.Exists(tempFilePath))
+                            {
+                                media_video.Source = new Uri(tempFilePath);
+                                media_video.LoadedBehavior = MediaState.Manual;
+
+                                // Wait for the video file to be loaded before trying to play it
+                                media_video.MediaOpened += (sender, e) =>
+                                {
+                                    media_video.Play();
+                                    btn_stack.Visibility = Visibility.Visible;
+                                    Play.Visibility = Visibility.Hidden;
+                                    Console.WriteLine("Video is playing.");
+                                };
+
+                                // Delete the temporary file when the video ends
+                                media_video.MediaEnded += (sender, e) =>
+                                {
+                                    File.Delete(tempFilePath);
+                                    Console.WriteLine("Temporary video file deleted.");
+                                };
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error saving video file to temporary location.");
+                                Console.WriteLine("Error saving video file to temporary location.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error loading video: {ex.Message}");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Video file is null or empty.");
+                        Console.WriteLine("Video file is null or empty.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Video not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine("Video not found in the database.");
+                }
+            }
+        }        // ----- Convert Byte Array to Bitmap Image -----
+        private BitmapImage ConvertByteArrayToBitmapImage(byte[] array)
+        {
+            using (var ms = new MemoryStream(array))
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = ms;
+                bitmapImage.EndInit();
+                return bitmapImage;
+            }
         }
     }
 }

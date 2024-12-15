@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -26,11 +25,10 @@ namespace MiniTube.View
         public LoginViewIn(string errorMessage)
         {
             InitializeComponent();
-            System.Windows.Media.Brush brush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Green);
+            System.Windows.Media.Brush brush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
             txt_error.Foreground = brush;
             txt_error.TextAlignment = TextAlignment.Center;
-            txt_error.Text = errorMessage;
-        }
+            txt_error.Text = errorMessage;        }
         static bool EmailValidity(string email)
         {
             return Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
