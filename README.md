@@ -101,6 +101,7 @@ CREATE TABLE [dbo].[Likes] (
 ### Triggers
 
 #### Update Comments Count Trigger
+### After insertion
 ```sql
 CREATE TRIGGER trg_UpdateCommentsCount
 ON dbo.Comments
@@ -112,6 +113,26 @@ BEGIN
 
     -- Get the VideoID from the inserted comment
     SELECT @VideoID = VideoID FROM inserted;
+
+    -- Update the CommentsCount for the specified VideoID
+    UPDATE dbo.Videos
+    SET CommentsCount = (SELECT COUNT(*) FROM dbo.Comments WHERE VideoID = @VideoID)
+    WHERE VideoID = @VideoID;
+END;
+```
+
+### After deletion
+```sql
+CREATE TRIGGER trg_UpdateCommentsCountOnDelete
+ON dbo.Comments
+AFTER DELETE
+AS
+BEGIN
+    -- Update the CommentsCount for the video associated with the deleted comment
+    DECLARE @VideoID INT;
+
+    -- Get the VideoID from the deleted comment
+    SELECT @VideoID = VideoID FROM deleted;
 
     -- Update the CommentsCount for the specified VideoID
     UPDATE dbo.Videos
