@@ -25,7 +25,7 @@
                             <ColumnDefinition Width="5"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Registeration" Foreground="Black" FontFamily="Wahoo" FontWeight="DemiBold" FontSize="12" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <TextBlock Text="Registeration" Foreground="Black" FontFamily="Wahoo" FontWeight="DemiBold" FontSize="17" Grid.Column="0" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <Button Name="btn_minimize" Cursor="Hand" Grid.Column="1" BorderBrush="Transparent" Click="btn_minimize_Click" Opacity="0.8">
                             <Button.Background>
                                 <ImageBrush ImageSource="/Images/mini.jpg"/>
@@ -77,7 +77,7 @@
                                     <RowDefinition Height="50"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Creator" Foreground="Black" FontSize="19" FontFamily="Helvetica LT Std" FontWeight="Bold" HorizontalAlignment="left" Grid.Row="0" VerticalAlignment="Center" Grid.Column="0">
+                                <TextBlock Text="Creator" Foreground="Black" FontSize="24" FontFamily="Helvetica LT Std" FontWeight="Bold" HorizontalAlignment="left" Grid.Row="0" VerticalAlignment="Center" Grid.Column="0">
 
                                 </TextBlock>
                                 <StackPanel Grid.Row="1" Grid.Column="0">
@@ -86,7 +86,7 @@
                                         <BulletDecorator.Bullet>
                                             <Ellipse Height="10" Width="10" Fill="#851698"/>
                                         </BulletDecorator.Bullet>
-                                        <TextBlock Text="Access to Studio" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                        <TextBlock Text="Access to Studio" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                         </TextBlock>
                                     </BulletDecorator>
@@ -95,7 +95,7 @@
                                         <BulletDecorator.Bullet>
                                             <Ellipse Height="10" Width="10" Fill="#851698"/>
                                         </BulletDecorator.Bullet>
-                                        <TextBlock Text="Upload Videos" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                        <TextBlock Text="Upload Videos" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                         </TextBlock>
                                     </BulletDecorator>
@@ -104,7 +104,7 @@
                                         <BulletDecorator.Bullet>
                                             <Ellipse Height="10" Width="10" Fill="#851698"/>
                                         </BulletDecorator.Bullet>
-                                        <TextBlock Text="Delete Videos" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                        <TextBlock Text="Delete Videos" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                         </TextBlock>
                                     </BulletDecorator>
@@ -113,7 +113,7 @@
                                         <BulletDecorator.Bullet>
                                             <Ellipse Height="10" Width="10" Fill="#851698"/>
                                         </BulletDecorator.Bullet>
-                                        <TextBlock Text="View Insights" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                        <TextBlock Text="View Insights" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                         </TextBlock>
                                     </BulletDecorator>
@@ -122,7 +122,7 @@
 
                                 </StackPanel>
 
-                                <TextBlock Text="Viewer" Foreground="Black" FontSize="19" FontFamily="Helvetica LT Std" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" Grid.Column="2">
+                                <TextBlock Text="Viewer" Foreground="Black" FontSize="24" FontFamily="Helvetica LT Std" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" Grid.Column="2">
 
                                 </TextBlock>
 
@@ -134,7 +134,7 @@
                                             <BulletDecorator.Bullet>
                                                 <Ellipse Height="10" Width="10" Fill="#851698"/>
                                             </BulletDecorator.Bullet>
-                                            <TextBlock Text="Access to Media" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                            <TextBlock Text="Access to Media" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                             </TextBlock>
                                         </BulletDecorator>
@@ -143,7 +143,7 @@
                                             <BulletDecorator.Bullet>
                                                 <Ellipse Height="10" Width="10" Fill="#851698"/>
                                             </BulletDecorator.Bullet>
-                                            <TextBlock Text="Watch Videos" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                            <TextBlock Text="Watch Videos" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                             </TextBlock>
                                         </BulletDecorator>
@@ -152,7 +152,7 @@
                                             <BulletDecorator.Bullet>
                                                 <Ellipse Height="10" Width="10" Fill="#851698"/>
                                             </BulletDecorator.Bullet>
-                                            <TextBlock Text="Like Videos" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                            <TextBlock Text="Like Videos" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                             </TextBlock>
                                         </BulletDecorator>
@@ -161,7 +161,7 @@
                                             <BulletDecorator.Bullet>
                                                 <Ellipse Height="10" Width="10" Fill="#851698"/>
                                             </BulletDecorator.Bullet>
-                                            <TextBlock Text="Comment Videos" Foreground="DarkGray" FontSize="17" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
+                                            <TextBlock Text="Comment Videos" Foreground="DarkGray" FontSize="22" FontFamily="Helvetica LT Std" FontWeight="Medium" HorizontalAlignment="left" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" Margin="15,0,0,0">
 
                                             </TextBlock>
                                         </BulletDecorator>
