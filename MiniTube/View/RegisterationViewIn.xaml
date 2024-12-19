@@ -78,6 +78,18 @@
 
                         </TextBox>
 
+                        <TextBlock Text="Email" Foreground="DarkGray" FontSize="14" FontFamily="Helvetica Lt Std" FontWeight="Medium" Margin="0,35,0,0">
+
+                        </TextBlock>
+
+
+
+                        <TextBox Name="txt_email" FontSize="13" FontFamily="Helvetica Lt Std" FontWeight="Medium" Foreground="black" CaretBrush="#9a06f0" BorderBrush="#9a06f0" BorderThickness="0,0,0,1.3" Height="22" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="28,0,0,0" KeyDown="txt_email_KeyDown">
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="/Images/email.png" Stretch="Uniform" AlignmentX="Left"></ImageBrush>
+                            </TextBox.Background>
+
+                        </TextBox>
 
                         <TextBlock Text="Password" Foreground="DarkGray" FontSize="14" FontFamily="Helvetica Lt Std" FontWeight="Medium" Margin="0,35,0,0">
 
@@ -106,18 +118,84 @@
                         </PasswordBox>
 
 
-                        <TextBlock Text="Email" Foreground="DarkGray" FontSize="14" FontFamily="Helvetica Lt Std" FontWeight="Medium" Margin="0,35,0,0">
+                    
+
+                        <TextBlock Text="OTP" Foreground="DarkGray" FontSize="14" FontFamily="Helvetica Lt Std" FontWeight="Medium" Margin="0,35,0,0">
 
                         </TextBlock>
-
-
-
-                        <TextBox Name="txt_email" FontSize="13" FontFamily="Helvetica Lt Std" FontWeight="Medium" Foreground="black" CaretBrush="#9a06f0" BorderBrush="#9a06f0" BorderThickness="0,0,0,1.3" Height="22" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="28,0,0,0" KeyDown="txt_email_KeyDown">
+                        <TextBox  x:Name="txtboxOtp" FontSize="13" FontFamily="Helvetica Lt Std" FontWeight="Medium" Foreground="black" CaretBrush="#9a06f0" BorderBrush="#9a06f0" BorderThickness="0,0,0,1.3" Height="22" VerticalContentAlignment="Center" Margin="0,5,0,0" Padding="28,0,0,0" KeyDown="txt_confirm_password_KeyDown">
                             <TextBox.Background>
-                                <ImageBrush ImageSource="/Images/email.png" Stretch="Uniform" AlignmentX="Left"></ImageBrush>
+                                <ImageBrush ImageSource="/Images/key.png"  Stretch="Uniform" AlignmentX="Left"></ImageBrush>
                             </TextBox.Background>
 
                         </TextBox>
+
+                        <Grid>
+                            <Button x:Name="btnotp"                      
+                             BorderThickness="0"
+             
+                             Content="Send OTP"
+                             Foreground="White"
+                                    Background="#9a06f0"
+                                    
+                             FontSize="16"
+                             FontFamily="Montserrat"
+                             Cursor="Hand"
+                             Opacity="80"
+                            HorizontalAlignment="Left"
+                             Click="btnotp_Click"
+                             Margin="0,10,0,0"
+                                     Width="80"
+                                     Height="30"
+                                    
+                                    >
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="80" Height="26" CornerRadius="13" Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+
+                            </Button>
+                            <TextBlock  Name="text1"
+                             Text="resend otp in"
+                                    Foreground="Black"
+                                    Margin="90,10,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontSize="14"
+                                        FontFamily="Helveitca Lt Std"
+                                        FontWeight="Medium"
+                                    Visibility="Hidden">
+
+                            </TextBlock>
+                            <TextBlock Name="text2" 
+                             Text="s"
+                                    Foreground="Black"
+                                    Margin="107,30,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    FontSize="14"
+                                                                               FontFamily="Helveitca Lt Std"
+                                        FontWeight="Medium"
+
+                                    Visibility="Hidden">
+
+                            </TextBlock>
+                            <TextBlock Name="timer"
+                                FontSize="14"
+                                Text="60"
+                                Foreground="Black"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                                                               FontFamily="Helveitca Lt Std"
+                                        FontWeight="Medium"
+
+                                Visibility="Hidden"
+                                Margin="90,0,0,0"/>
+                        </Grid>
+
 
                         <TextBlock Name="txt_error" FontSize="14" FontFamily="Helvetica Lt Std" FontWeight="Medium" Margin="0,35,0,0" HorizontalAlignment="Center" Width="245">
 

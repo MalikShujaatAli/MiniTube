@@ -25,6 +25,7 @@
     <None Remove="Images\k1.png" />
     <None Remove="Images\k2.png" />
     <None Remove="Images\k3.png" />
+    <None Remove="Images\key.png" />
     <None Remove="Images\lbut.png" />
     <None Remove="Images\like.png" />
     <None Remove="Images\liked.png" />
@@ -54,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Communication.Email" Version="1.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -81,6 +83,7 @@
     <Resource Include="Images\k1.png" />
     <Resource Include="Images\k2.png" />
     <Resource Include="Images\k3.png" />
+    <Resource Include="Images\key.png" />
     <Resource Include="Images\lbut.png" />
     <Resource Include="Images\like.png" />
     <Resource Include="Images\liked.png" />
