@@ -120,22 +120,27 @@ namespace MiniTube.View
                 using (var db = new MiniTubeContext())
                 {
                     Video? vid = db.Videos.FirstOrDefault(x => x.VideoId == Id);
-                    if (vid != null)
+                    if (vid == null)
                     {
-                        db.Videos.Remove(vid); // Remove video from context db.SaveChanges(); // Save changes to the database 
+                        MessageBox.Show("Video not found.");
+                        return;
                     }
-                    else
-                    {
-                        MessageBox.Show("Video not found."); // Handle case where video is not found
-                    }
+
+                    db.Videos.Remove(vid);
+                    db.SaveChanges();
+                    MessageBox.Show("Video deleted successfully.");
+                    StudioView studioView = new StudioView(uId);
+                    studioView.Show();
+                    this.Close();
                 }
-                StudioView studioView = new StudioView(uId); // Navigate back to StudioView
-                studioView.Show();
-                this.Close(); // Close the current window 
+            }
+            catch (DbUpdateException dbEx)
+            {
+                MessageBox.Show($"Database update error: {dbEx.InnerException?.Message}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error deleting video: {ex.Message}"); // Handle exceptions 
+                MessageBox.Show($"Error deleting video: {ex.Message}");
             }
         }
 
