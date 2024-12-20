@@ -116,7 +116,7 @@
                         <Grid Grid.Column="0" ShowGridLines="False" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="550.3027 "/>
-                                <RowDefinition Height="16.068 "/>
+                                <RowDefinition Height="20"/>
                                 <RowDefinition Height="42.94 "/>
                                 <RowDefinition Height="16.06 "/>
                                 <RowDefinition Height="31.0022  "/>
@@ -125,8 +125,22 @@
 
                             <MediaElement LoadedBehavior="Manual"
               UnloadedBehavior="Manual"
-              Stretch="Uniform" Height="550.3027" Name="media_video" Source="/Images/placeholder.png" Grid.Row="0"/>
+              Stretch="Uniform" Height="530.3027" Name="media_video" Source="/Images/placeholder.png" Grid.Row="0"/>
 
+                            <Slider Name="videoSlider" 
+                                   Foreground="#9a06f0"
+                                    BorderBrush="#9a06f0"
+                                   
+                                    Grid.Column="0"
+                                    
+            Grid.Row="1" 
+            Minimum="0" 
+            Maximum="100" 
+            Value="0" 
+            ValueChanged="videoSlider_ValueChanged"  
+            Height="20" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Center"/>            
                             <Button Name="btn_play" Cursor="Hand" Width="100" HorizontalAlignment="Left" Grid.Row="2" BorderBrush="Black"  Opacity="1"  Click="btn_play_Click">
                                 <Button.Background>
                                     <ImageBrush ImageSource="/Images/play.png"/>

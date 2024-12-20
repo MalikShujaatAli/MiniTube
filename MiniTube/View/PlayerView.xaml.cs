@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using MiniTubeContext = MiniTube.ModelsEAD.MiniTubeContext;
 
 namespace MiniTube.View
@@ -23,6 +24,7 @@ namespace MiniTube.View
         private bool isFullscreen = false;
         private bool isLiked = false; // Track if the user has liked the video
         private string tempFilePath; // Temporary file path for the video
+        private DispatcherTimer timer;
 
         public PlayerView()
         {
@@ -67,6 +69,10 @@ namespace MiniTube.View
                             // Set the media player's source to the temporary file
                             media_video.Source = new Uri(tempFilePath, UriKind.Absolute);
                             media_video.Play();
+                            timer = new DispatcherTimer();
+                            timer.Interval = TimeSpan.FromSeconds(1); // Update every second
+                            timer.Tick += Timer_Tick;
+                            timer.Start();
                         }
                         catch (Exception ex)
                         {
@@ -98,6 +104,14 @@ namespace MiniTube.View
             }
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (media_video.NaturalDuration.HasTimeSpan)
+            {
+                videoSlider.Maximum = media_video.NaturalDuration.TimeSpan.TotalSeconds;
+                videoSlider.Value = media_video.Position.TotalSeconds;
+            }
+        }
         // ----- Load related videos into the WrapPanel -----
         private void LoadRelatedVideos()
         {
@@ -175,6 +189,7 @@ namespace MiniTube.View
                     btn_play.Visibility = Visibility.Hidden;
                     btn_pause.Visibility = Visibility.Visible;
                     media_video.Play();
+                    timer.Start(); // Start the timer when playing
                 }
                 else
                 {
@@ -186,7 +201,6 @@ namespace MiniTube.View
                 MessageBox.Show($"Error playing video: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         // ----- Stop the current video -----
         private void StopCurrentVideo()
         {
@@ -200,7 +214,13 @@ namespace MiniTube.View
                 }
             }
         }
-
+        private void videoSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (media_video.NaturalDuration.HasTimeSpan && media_video.NaturalDuration.TimeSpan.TotalSeconds > 0)
+            {
+                media_video.Position = TimeSpan.FromSeconds(videoSlider.Value);
+            }
+        }
         // ----- Pause button click event handler -----
         private void btn_pause_Click(object sender, RoutedEventArgs e)
         {
@@ -211,6 +231,7 @@ namespace MiniTube.View
                     btn_pause.Visibility = Visibility.Hidden;
                     btn_play.Visibility = Visibility.Visible;
                     media_video.Pause();
+                    timer.Stop(); // Stop the timer when paused
                 }
                 else
                 {
