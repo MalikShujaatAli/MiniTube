@@ -125,7 +125,7 @@ namespace MiniTube.View
             }
             if (ootp!=otp)
             {
-                ShowError("Otp doesn't match");
+                ShowError("OTP doesn't match");
                 return;
             }
 
@@ -188,7 +188,7 @@ namespace MiniTube.View
             text2.Visibility = Visibility.Visible;
             btnotp.Visibility = Visibility.Hidden;
             btnotp.IsEnabled = false;
-            StartCountdown(20);
+            StartCountdown(30);
             txtboxOtp.IsEnabled = true;
 
             try
@@ -204,67 +204,67 @@ namespace MiniTube.View
     {
                         PlainText = $"Your OTP is: {otp}",
                         Html = $@"
-<html>
-                <head>
-                    <style>
-                        body {{
-                            font-family: Arial, sans-serif;
-                            background-color: #ffffff;
-                            color: #333333;
-                            margin: 0;
-                            padding: 20px;
-                        }}
-                        .container {{
-                            max-width: 600px;
-                            margin: auto;
-                            border: 1px solid #9a06f0;
-                            border-radius: 8px;
-                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                            overflow: hidden;
-                        }}
-                        .header {{
-                            background-color: #9a06f0;
-                            color: white;
-                            padding: 20px;
-                            text-align: center;
-                        }}
-                        .content {{
-                            padding: 20px;
-                        }}
-                        .footer {{
-                            text-align: center;
-                            padding: 10px;
-                            font-size: 12px;
-                            color: #777777;
-                        }}
-                        .otp {{
-                            font-size: 24px;
-                            font-weight: bold;
-                            color: #9a06f0;
-                        }}
-                        .note {{
-                            margin-top: 20px;
-                            font-size: 14px;
-                            color: #555555;
-                        }}
-                    </style>
-                </head>
-                <body>
-                    <div class='container'>
-                        <div class='header'>
-                            <h1>MiniTube Verification</h1>
-                        </div>
-                        <div class='content'>
-                            <p>Your OTP is: <span class='otp'>{otp}</span></p>
-                            <p>Please use this code to verify your account. Do not share it with anyone.</p>
-                            <p class='note'>If you did not request this email, please ignore it.</p>
-                        </div>
-                        <div class='footer'>
-                            <p>&copy; {DateTime.Now.Year} MiniTube. All rights reserved.</p>
-                        </div>
-                    </div>
-                </body>
-            </html>"
+                    <html>
+                                    <head>
+                                        <style>
+                                            body {{
+                                                font-family: Arial, sans-serif;
+                                                background-color: #ffffff;
+                                                color: #333333;
+                                                margin: 0;
+                                                padding: 20px;
+                                            }}
+                                            .container {{
+                                                max-width: 600px;
+                                                margin: auto;
+                                                border: 1px solid #9a06f0;
+                                                border-radius: 8px;
+                                                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                                                overflow: hidden;
+                                            }}
+                                            .header {{
+                                                background-color: #9a06f0;
+                                                color: white;
+                                                padding: 20px;
+                                                text-align: center;
+                                            }}
+                                            .content {{
+                                                padding: 20px;
+                                            }}
+                                            .footer {{
+                                                text-align: center;
+                                                padding: 10px;
+                                                font-size: 12px;
+                                                color: #777777;
+                                            }}
+                                            .otp {{
+                                                font-size: 24px;
+                                                font-weight: bold;
+                                                color: #9a06f0;
+                                            }}
+                                            .note {{
+                                                margin-top: 20px;
+                                                font-size: 14px;
+                                                color: #555555;
+                                            }}
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <div class='container'>
+                                            <div class='header'>
+                                                <h1>MiniTube Verification</h1>
+                                            </div>
+                                            <div class='content'>
+                                                <p>Your OTP is: <span class='otp'>{otp}</span></p>
+                                                <p>Please use this code to verify your account. Do not share it with anyone.</p>
+                                                <p class='note'>If you did not request this email, please ignore it.</p>
+                                            </div>
+                                            <div class='footer'>
+                                                <p>&copy; {DateTime.Now.Year} MiniTube. All rights reserved.</p>
+                                            </div>
+                                        </div>
+                                    </body>
+                                </html>"
                             },
                     recipients: new EmailRecipients(
                         new List<EmailAddress> { new EmailAddress(email) }

@@ -12,7 +12,7 @@
 
         <Border>
             <Border.Background>
-                <ImageBrush ImageSource="/Images/bg2.png" />
+                <ImageBrush ImageSource="/Images/bg3.jpg" />
             </Border.Background>
             <Border Background="Transparent" BorderBrush="#9a06f0" BorderThickness="3">
                 <Grid >

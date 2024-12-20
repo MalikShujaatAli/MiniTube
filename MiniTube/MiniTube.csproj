@@ -15,6 +15,7 @@
     <None Remove="Images\back.png" />
     <None Remove="Images\bg.png" />
     <None Remove="Images\bg2.png" />
+    <None Remove="Images\bg3.jpg" />
     <None Remove="Images\close.jpg" />
     <None Remove="Images\comment.png" />
     <None Remove="Images\delete.png" />
@@ -73,6 +74,7 @@
     <Resource Include="Images\back.png" />
     <Resource Include="Images\bg.png" />
     <Resource Include="Images\bg2.png" />
+    <Resource Include="Images\bg3.jpg" />
     <Resource Include="Images\close.jpg" />
     <Resource Include="Images\comment.png" />
     <Resource Include="Images\delete.png" />
