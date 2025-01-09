@@ -18,12 +18,12 @@
 
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30.952 "/>
-                <RowDefinition Height="547.4243 "/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" HorizontalAlignment="Left" Text="{Binding Title, FallbackValue='No Title'}" TextWrapping="Wrap"
            FontSize="16 " FontFamily="Helvetica Lt Std" FontWeight="Bold" Foreground="Black"/>
-            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Text="{Binding Description, FallbackValue='No Description'}" TextWrapping="Wrap"
+            <TextBlock Grid.Row="1"  Margin="0,5,0,0" HorizontalAlignment="Left" Text="{Binding Description, FallbackValue='No Description'}" TextWrapping="Wrap"
            FontSize="13" FontFamily="Helvetica Lt Std" FontWeight="Medium" Foreground="Black"/>
         </Grid>
     </Grid>

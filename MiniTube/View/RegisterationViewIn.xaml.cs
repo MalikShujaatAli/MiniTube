@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using Azure;
 using Azure.Communication.Email;
+using System.Net.Mail;
+using System.Net;
 
 
 
@@ -164,6 +166,127 @@ namespace MiniTube.View
                 ShowError($"Registration failed: {ex.Message}");
             }
         }
+        //    private void btnotp_Click(object sender, RoutedEventArgs e)
+        //    {
+        //        string email = txt_email.Text;
+
+        //        // Validate email input
+        //        if (string.IsNullOrWhiteSpace(email) || !EmailValidity(email))
+        //        {
+        //            ShowError("Enter a valid email");
+        //            return;
+        //        }
+
+        //        // Generate OTP
+        //        Random random = new Random();
+        //         otp = random.Next(1000, 10000);
+
+        //        // Store OTP securely (e.g., in memory or database)
+        //        Application.Current.Properties["GeneratedOTP"] = otp;
+
+        //        // Start the countdown
+        //        timer.Visibility = Visibility.Visible;
+        //        text1.Visibility = Visibility.Visible;
+        //        text2.Visibility = Visibility.Visible;
+        //        btnotp.Visibility = Visibility.Hidden;
+        //        btnotp.IsEnabled = false;
+        //        StartCountdown(30);
+        //        txtboxOtp.IsEnabled = true;
+
+        //        try
+        //        {
+        //            // Azure Communication Services email sending
+        //            string connectionString = "endpoint=https://mymailapi.unitedstates.communication.azure.com/;accesskey=6I4vdZOaSzHtAh1VagfaQf1bkBcB6iqOvgxnmQYxsULcrNtnukKbJQQJ99ALACULyCpJtr7XAAAAAZCSlZnP";
+        //            var emailClient = new EmailClient(connectionString);
+
+        //            // Create the email message
+        //            var emailMessage = new EmailMessage(
+        //                    senderAddress: "DoNotReply@b9249a72-1ff3-4bca-9dba-f5866d537be3.azurecomm.net",
+        //                        content: new EmailContent("MiniTube Verification")
+        //{
+        //                    PlainText = $"Your OTP is: {otp}",
+        //                    Html = $@"
+        //                <html>
+        //                                <head>
+        //                                    <style>
+        //                                        body {{
+        //                                            font-family: Arial, sans-serif;
+        //                                            background-color: #ffffff;
+        //                                            color: #333333;
+        //                                            margin: 0;
+        //                                            padding: 20px;
+        //                                        }}
+        //                                        .container {{
+        //                                            max-width: 600px;
+        //                                            margin: auto;
+        //                                            border: 1px solid #9a06f0;
+        //                                            border-radius: 8px;
+        //                                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        //                                            overflow: hidden;
+        //                                        }}
+        //                                        .header {{
+        //                                            background-color: #9a06f0;
+        //                                            color: white;
+        //                                            padding: 20px;
+        //                                            text-align: center;
+        //                                        }}
+        //                                        .content {{
+        //                                            padding: 20px;
+        //                                        }}
+        //                                        .footer {{
+        //                                            text-align: center;
+        //                                            padding: 10px;
+        //                                            font-size: 12px;
+        //                                            color: #777777;
+        //                                        }}
+        //                                        .otp {{
+        //                                            font-size: 24px;
+        //                                            font-weight: bold;
+        //                                            color: #9a06f0;
+        //                                        }}
+        //                                        .note {{
+        //                                            margin-top: 20px;
+        //                                            font-size: 14px;
+        //                                            color: #555555;
+        //                                        }}
+        //                                    </style>
+        //                                </head>
+        //                                <body>
+        //                                    <div class='container'>
+        //                                        <div class='header'>
+        //                                            <h1>MiniTube Verification</h1>
+        //                                        </div>
+        //                                        <div class='content'>
+        //                                            <p>Your OTP is: <span class='otp'>{otp}</span></p>
+        //                                            <p>Please use this code to verify your account. Do not share it with anyone.</p>
+        //                                            <p class='note'>If you did not request this email, please ignore it.</p>
+        //                                        </div>
+        //                                        <div class='footer'>
+        //                                            <p>&copy; {DateTime.Now.Year} MiniTube. All rights reserved.</p>
+        //                                        </div>
+        //                                    </div>
+        //                                </body>
+        //                            </html>"
+        //                        },
+        //                recipients: new EmailRecipients(
+        //                    new List<EmailAddress> { new EmailAddress(email) }
+        //                )
+        //            );
+
+        //            // Send the email
+        //            EmailSendOperation emailSendOperation = emailClient.Send(
+        //                WaitUntil.Completed,
+        //                emailMessage
+        //            );
+
+        //            ShowError("OTP sent successfully.");
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show($"Failed to send OTP: {ex.Message}");
+        //        }
+        //    }
+
         private void btnotp_Click(object sender, RoutedEventArgs e)
         {
             string email = txt_email.Text;
@@ -177,10 +300,7 @@ namespace MiniTube.View
 
             // Generate OTP
             Random random = new Random();
-             otp = random.Next(1000, 10000);
-
-            // Store OTP securely (e.g., in memory or database)
-            Application.Current.Properties["GeneratedOTP"] = otp;
+            otp = random.Next(1000, 10000);
 
             // Start the countdown
             timer.Visibility = Visibility.Visible;
@@ -193,90 +313,92 @@ namespace MiniTube.View
 
             try
             {
-                // Azure Communication Services email sending
-                string connectionString = "endpoint=https://mymailapi.unitedstates.communication.azure.com/;accesskey=6I4vdZOaSzHtAh1VagfaQf1bkBcB6iqOvgxnmQYxsULcrNtnukKbJQQJ99ALACULyCpJtr7XAAAAAZCSlZnP";
-                var emailClient = new EmailClient(connectionString);
 
-                // Create the email message
-                var emailMessage = new EmailMessage(
-                        senderAddress: "DoNotReply@b9249a72-1ff3-4bca-9dba-f5866d537be3.azurecomm.net",
-                            content: new EmailContent("MiniTube Verification")
-    {
-                        PlainText = $"Your OTP is: {otp}",
-                        Html = $@"
-                    <html>
-                                    <head>
-                                        <style>
-                                            body {{
-                                                font-family: Arial, sans-serif;
-                                                background-color: #ffffff;
-                                                color: #333333;
-                                                margin: 0;
-                                                padding: 20px;
-                                            }}
-                                            .container {{
-                                                max-width: 600px;
-                                                margin: auto;
-                                                border: 1px solid #9a06f0;
-                                                border-radius: 8px;
-                                                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                                                overflow: hidden;
-                                            }}
-                                            .header {{
-                                                background-color: #9a06f0;
-                                                color: white;
-                                                padding: 20px;
-                                                text-align: center;
-                                            }}
-                                            .content {{
-                                                padding: 20px;
-                                            }}
-                                            .footer {{
-                                                text-align: center;
-                                                padding: 10px;
-                                                font-size: 12px;
-                                                color: #777777;
-                                            }}
-                                            .otp {{
-                                                font-size: 24px;
-                                                font-weight: bold;
-                                                color: #9a06f0;
-                                            }}
-                                            .note {{
-                                                margin-top: 20px;
-                                                font-size: 14px;
-                                                color: #555555;
-                                            }}
-                                        </style>
-                                    </head>
-                                    <body>
-                                        <div class='container'>
-                                            <div class='header'>
-                                                <h1>MiniTube Verification</h1>
-                                            </div>
-                                            <div class='content'>
-                                                <p>Your OTP is: <span class='otp'>{otp}</span></p>
-                                                <p>Please use this code to verify your account. Do not share it with anyone.</p>
-                                                <p class='note'>If you did not request this email, please ignore it.</p>
-                                            </div>
-                                            <div class='footer'>
-                                                <p>&copy; {DateTime.Now.Year} MiniTube. All rights reserved.</p>
-                                            </div>
-                                        </div>
-                                    </body>
-                                </html>"
-                            },
-                    recipients: new EmailRecipients(
-                        new List<EmailAddress> { new EmailAddress(email) }
-                    )
-                );
+                string from = Environment.GetEnvironmentVariable("SENDER_EMAIL") ?? throw new InvalidOperationException("SENDER_EMAIL is not set.");
+                string pass = ("gybkxoaljucpabvr");
 
-                // Send the email
-                EmailSendOperation emailSendOperation = emailClient.Send(
-                    WaitUntil.Completed,
-                    emailMessage
-                );
+                string subject = "MiniTube Verification";
+                string messageBody = $@"
+            <html>
+                <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            background-color: #ffffff;
+                            color: #333333;
+                            margin: 0;
+                            padding: 20px;
+                        }}
+                        .container {{
+                            max-width: 600px;
+                            margin: auto;
+                            border: 1px solid #9a06f0;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                            overflow: hidden;
+                        }}
+                        .header {{
+                            background-color: #9a06f0;
+                            color: white;
+                            padding: 20px;
+                            text-align: center;
+                        }}
+                        .content {{
+                            padding: 20px;
+                        }}
+                        .footer {{
+                            text-align: center;
+                            padding: 10px;
+                            font-size: 12px;
+                            color: #777777;
+                        }}
+                        .otp {{
+                            font-size: 24px;
+                            font-weight: bold;
+                            color: #9a06f0;
+                        }}
+                        .note {{
+                            margin-top: 20px;
+                            font-size: 14px;
+                            color: #555555;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class='container'>
+                        <div class='header'>
+                            <h1>MiniTube Verification</h1>
+                        </div>
+                        <div class='content'>
+                            <p>Your OTP is: <span class='otp'>{otp}</span></p>
+                            <p>Please use this code to verify your account. Do not share it with anyone.</p>
+                            <p class='note'>If you did not request this email, please ignore it.</p>
+                        </div>
+                        <div class='footer'>
+                            <p>&copy; {DateTime.Now.Year} MiniTube. All rights reserved.</p>
+                        </div>
+                    </div>
+                </body>
+            </html>";
 
+                MailMessage message = new MailMessage();
+                message.To.Add(email);
+                if (string.IsNullOrEmpty(from))
+                {
+                    throw new InvalidOperationException("Sender email cannot be null or empty.");
+                }
+                message.From = new MailAddress(from, "Don't Reply");
+                message.Subject = subject;
+                message.Body = messageBody;
+                message.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential(from, pass),
+                    EnableSsl = true
+                };
+
+                smtp.Send(message);
                 ShowError("OTP sent successfully.");
             }
             catch (Exception ex)
@@ -284,6 +406,7 @@ namespace MiniTube.View
                 MessageBox.Show($"Failed to send OTP: {ex.Message}");
             }
         }
+
         private void StartCountdown(int seconds)
         {
             _countdown = seconds;
